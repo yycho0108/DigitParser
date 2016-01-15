@@ -16,16 +16,16 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     inputwidget.cpp \
-    ../MachineLearning/Layer.cpp \
-    ../MachineLearning/Net.cpp \
-    ../MachineLearning/Neuron.cpp \
-    ../MachineLearning/Utility.cpp
+    ../MachineLearning/MNIST/Layer.cpp \
+    ../MachineLearning/MNIST/Net.cpp \
+    ../MachineLearning/MNIST/Neuron.cpp \
+    ../MachineLearning/MNIST/Utility.cpp
 
 HEADERS  += mainwindow.h \
     inputwidget.h \
-    ../MachineLearning/Layer.h \
-    ../MachineLearning/Net.h \
-    ../MachineLearning/Neuron.h \
-    ../MachineLearning/Utility.h
+    ../MachineLearning/MNIST/Layer.h \
+    ../MachineLearning/MNIST/Net.h \
+    ../MachineLearning/MNIST/Neuron.h \
+    ../MachineLearning/MNIST/Utility.h
 
 FORMS    += mainwindow.ui

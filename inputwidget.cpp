@@ -6,14 +6,14 @@
 InputWidget::InputWidget(QWidget* parent):
     QFrame(parent),image(28,28,QImage::Format_RGB888)
 {
-    image.fill(QColor::fromRgb(255,255,255));
+    image.fill(QColor::fromRgb(0,0,0));
     drawing = false;
     erasing = false;
 
-    myBrush = QBrush(QColor::fromRgb(0,0,0));
+    myBrush = QBrush(QColor::fromRgb(255,255,255));
     myPen = QPen(myBrush,15.0);
 
-    myEBrush = QBrush(QColor::fromRgb(255,255,255));
+    myEBrush = QBrush(QColor::fromRgb(0,0,0));
     myEraser = QPen(myEBrush,15.0);
 }
 
@@ -68,22 +68,25 @@ void InputWidget::resizeEvent(QResizeEvent *e){
 
 
 void InputWidget::clear(){
-    image.fill(QColor::fromRgbF(1.0,1.0,1.0,1.0));
+    image.fill(QColor::fromRgb(0,0,0));
     update();
 }
 
 std::vector<double> InputWidget::evaluate(){
-    //auto q = qDebug();
+    auto q = qDebug();
     auto img = image.scaled(28,28,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
     std::vector<double> dat;
     dat.reserve(28*28);
     for(int i=0;i<28;++i){
         auto l = (QRgb*)img.scanLine(i);
         for(int j=0;j<28;++j){
-            dat.push_back(1.0 - qGray(l[j])/256.0); //invert
-           //q << (dat.back() > 0.8? 1:0);
+            auto val = qGray(l[j])/256.0;
+            q << ((val > 0.5)?1:0);
+            //auto val = 1.0 - qGray(l[j])/256.0;
+            dat.push_back(val); //invert
+           //q << (val > 0.8? 2: dat.back()>0.4?1:0);
         }
-      //q << '\n';
+      q << '\n';
     }
     return dat;
 }
