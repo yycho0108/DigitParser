@@ -2,6 +2,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QDebug>
+#include <opencv2/core/core.hpp>
 
 InputWidget::InputWidget(QWidget* parent):
     QFrame(parent),image(28,28,QImage::Format_RGB888)
@@ -72,21 +73,16 @@ void InputWidget::clear(){
     update();
 }
 
-std::vector<double> InputWidget::evaluate(){
-    auto q = qDebug();
+std::vector<cv::Mat> InputWidget::evaluate(){
     auto img = image.scaled(28,28,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-    std::vector<double> dat;
-    dat.reserve(28*28);
+    cv::Mat mat(28,28,cv::DataType<float>::type);
     for(int i=0;i<28;++i){
         auto l = (QRgb*)img.scanLine(i);
         for(int j=0;j<28;++j){
             auto val = qGray(l[j])/256.0;
-            q << ((val > 0.5)?1:0);
-            //auto val = 1.0 - qGray(l[j])/256.0;
-            dat.push_back(val); //invert
-           //q << (val > 0.8? 2: dat.back()>0.4?1:0);
+            mat.at<float>(i,j) = val;
         }
-      q << '\n';
+
     }
-    return dat;
+    return std::vector<cv::Mat>({mat});
 }

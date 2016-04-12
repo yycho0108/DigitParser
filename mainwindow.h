@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "../MachineLearning/Net.h"
+#include "../Learn/OpenCV/05_ConvNet/ConvNet.h"
 
 namespace Ui {
 class MainWindow;
@@ -12,7 +12,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
-    Net net;
+    ConvNet net;
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

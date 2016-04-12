@@ -7,6 +7,7 @@
 #include <QPen>
 #include <QBrush>
 #include <vector>
+#include <opencv2/core/core.hpp>
 
 class InputWidget : public QFrame
 {
@@ -30,7 +31,7 @@ signals:
 
 public slots:
     void clear();
-    std::vector<double> evaluate();
+    std::vector<cv::Mat> evaluate();
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *);
